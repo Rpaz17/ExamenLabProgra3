@@ -5,6 +5,7 @@
 #include "invalidrateexception.h"
 #include "ctunes.h"
 #include "genero.h"
+#include <QMessageBox>
 
 cframe::cframe(QWidget *parent)
     : QMainWindow(parent)
@@ -27,7 +28,38 @@ void cframe::on_Add_clicked()
 
 void cframe::on_pushButton_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(0);
+    ctunes Ctunes;
+    QString code = ui->codigo->text();
+    QString estrella = ui->estrellas->text();
+
+    bool esNumero;
+    bool esNumero2;
+
+    code.toDouble(&esNumero);
+    estrella.toInt(&esNumero2);
+
+    if(!esNumero && !esNumero2){
+        QMessageBox::warning(nullptr,"ADVERTENCIA", "Ingrese un numero valido");
+        ui->codigo->clear();
+        ui->estrellas->clear();
+    }else if(!esNumero && esNumero2){
+        QMessageBox::warning(nullptr,"ADVERTENCIA", "Ingrese un numero valido");
+        ui->codigo->clear();
+    }else if(esNumero && !esNumero2){
+        QMessageBox::warning(nullptr,"ADVERTENCIA", "Ingrese un numero valido");
+        ui->estrellas->clear();
+    }else{
+        int cod=ui->codigo->text().toInt();
+        int est=ui->estrellas->text().toInt();
+
+        if(est<0 || est>5){
+            QMessageBox::warning(nullptr,"ADVERTENCIA", "Ingrese un numero valido (De 0 a 5)");
+            ui->estrellas->clear();
+        }else{
+           Ctunes.reviewSong(cod,est);
+           QMessageBox::information(nullptr, "YOU DID IT", "Se dio el review correctamente");
+        }
+    }
 }
 
 
@@ -90,16 +122,22 @@ void cframe::on_backA_clicked()
 
 void cframe::on_AddButton_clicked()
 {
+    ctunes Ctunes;
     QString nombre = ui->nombreC->text();
     QString cantante = ui->cantante->text();
     Genero genero = Ctunes.stringToGenero(ui->genero->text());
     double precio = ui->precio->text().toDouble();
 
-    try {
-        Ctunes.addSong(nombre, cantante, genero, precio);
-    }  catch (const InvalidRateException& e) {
-        QString errorMessage = "Error: " + QString::fromUtf8(e.what());
-        qDebug() << errorMessage;
-    }
+    Ctunes.addSong(nombre, cantante, genero, precio);
+    QMessageBox::information(nullptr, "YOU DID IT", "La cancion se anadida correctamente");
+}
+
+
+void cframe::on_pushButton_7_clicked()
+{
+    ctunes Ctunes;
+    QString text=Ctunes.songs(ui->lineEdit->text());
+
+    ui->textBrowser->setText(text);
 }
 

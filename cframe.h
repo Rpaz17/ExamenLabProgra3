@@ -39,8 +39,8 @@ private slots:
     void on_backA_clicked();
 
     void on_AddButton_clicked();
+    void on_pushButton_7_clicked();
 
-    ctunes Ctunes;
 private:
     Ui::cframe *ui;
 };

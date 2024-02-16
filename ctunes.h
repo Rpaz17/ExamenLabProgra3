@@ -13,7 +13,7 @@ public:
     void addSong(QString nombre, QString cantante, Genero generoCantante, double precio);
     void reviewSong(int codigo, int estrellas);
     void downloadSong(int codigoC, QString cliente);
-    void songs(QString txtFile);
+    QString songs(QString txtFile);
     void infoSong(int codigoCancion);
     Genero stringToGenero(const QString& generoStr);
 
