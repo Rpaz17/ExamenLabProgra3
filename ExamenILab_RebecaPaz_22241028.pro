@@ -9,11 +9,17 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    ctunes.cpp \
     main.cpp \
-    cframe.cpp
+    cframe.cpp \
+    managerarch.cpp
 
 HEADERS += \
-    cframe.h
+    cframe.h \
+    ctunes.h \
+    genero.h \
+    invalidrateexception.h \
+    managerarch.h
 
 FORMS += \
     cframe.ui
